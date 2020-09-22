@@ -6,13 +6,14 @@ public class LevelLoader : MonoBehaviour
 
     GameObject menu_Canvas;
     GameObject settings_Canvas;
+    GameObject dataHandler;
 
     void Start()
     {
 
         menu_Canvas = GameObject.Find("MainMenuCanvas");
         settings_Canvas = GameObject.Find("SettingsCanvas");
-
+        dataHandler = GameObject.Find("DataHandler");
         settings_Canvas.SetActive(false);
         menu_Canvas.SetActive(true);
     }
@@ -41,5 +42,10 @@ public class LevelLoader : MonoBehaviour
 
         menu_Canvas.SetActive(false);
         settings_Canvas.SetActive(true);
+    }
+
+    public void deleteDataHandler()
+    {
+        Destroy(dataHandler);
     }
 }

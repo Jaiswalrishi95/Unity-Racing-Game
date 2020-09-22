@@ -16,6 +16,8 @@ public class BasicVehControls : MonoBehaviour
     public WheelCollider FR;
     public WheelCollider RL;
     public WheelCollider RR;
+    public Transform frontDriverT, frontPassengerT;
+    public Transform rearDriverT, rearPassengerT;
 
     public float currentSpeed;
     public int maxSpeed;
@@ -58,6 +60,25 @@ public class BasicVehControls : MonoBehaviour
 
     }
 
+    private void UpdateWheelPoses()
+    {
+        UpdateWheelPose(FL, frontDriverT);
+        UpdateWheelPose(FR, frontPassengerT);
+        UpdateWheelPose(RL, rearDriverT);
+        UpdateWheelPose(RR, rearPassengerT);
+    }
+
+    private void UpdateWheelPose(WheelCollider _collider, Transform _transform)
+    {
+        Vector3 _pos = _transform.position;
+        Quaternion _quat = _transform.rotation;
+
+        _collider.GetWorldPose(out _pos, out _quat);
+
+        _transform.position = _pos;
+        _transform.rotation = _quat;
+    }
+
 
     void Update()
     {
@@ -65,6 +86,7 @@ public class BasicVehControls : MonoBehaviour
         Steer();
         AutoGears();
         Accelerate();
+        UpdateWheelPoses();
         //carSounds();
 
         //Defenitions.
@@ -95,8 +117,8 @@ public class BasicVehControls : MonoBehaviour
         if (currentSpeed < maxSpeed && currentSpeed > maxRevSpeed && engineRPM <= gearUpRPM)
         {
 
-            RL.motorTorque = torque * Input.GetAxis("Vertical");
-            RR.motorTorque = torque * Input.GetAxis("Vertical");
+            RL.motorTorque = torque * -Input.GetAxis("Vertical");
+            RR.motorTorque = torque * -Input.GetAxis("Vertical");
             RL.brakeTorque = 0;
             RR.brakeTorque = 0;
         }
@@ -112,8 +134,8 @@ public class BasicVehControls : MonoBehaviour
         if (engineRPM > 0 && Input.GetAxis("Vertical") < 0 && engineRPM <= gearUpRPM)
         {
 
-            FL.brakeTorque = brakeTorque;
-            FR.brakeTorque = brakeTorque;
+            FL.brakeTorque = torque * -Input.GetAxis("Vertical");
+            FR.brakeTorque = torque * -Input.GetAxis("Vertical");
         }
         else
         {
@@ -127,11 +149,11 @@ public class BasicVehControls : MonoBehaviour
 
         if (currentSpeed < 100)
         {
-            SteerAngle = 13 - (currentSpeed / 10);
+            SteerAngle = 30 - (currentSpeed / 10);
         }
         else
         {
-            SteerAngle = 2;
+            SteerAngle = 30;
         }
 
         FL.steerAngle = SteerAngle * Input.GetAxis("Horizontal");

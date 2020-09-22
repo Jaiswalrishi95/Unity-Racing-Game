@@ -60,12 +60,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AntiRollbar.cs" />
     <Compile Include="Assets\Scripts\BasicVehControls.cs" />
+    <Compile Include="Assets\Scripts\BasicVehControls1.cs" />
     <Compile Include="Assets\Scripts\CarSelector.cs" />
     <Compile Include="Assets\Scripts\DataHandler.cs" />
     <Compile Include="Assets\Scripts\DataImplementer.cs" />
     <Compile Include="Assets\Scripts\LevelLoader.cs" />
-    <Compile Include="Assets\Scripts\SimpleCarController.cs" />
+    <Compile Include="Assets\Scripts\Wing.cs" />
     <None Include="Assets\Warehouse\README.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>G:/Unity/Unity-Racing-Game/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
