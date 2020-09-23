@@ -7,6 +7,9 @@ public class LevelLoader : MonoBehaviour
     GameObject menu_Canvas;
     GameObject settings_Canvas;
     GameObject dataHandler;
+    GameObject f22e4123;
+    GameObject Lamborghini_Huracan_Variant;
+    GameObject Aventador_tunnig_Variant;
 
     void Start()
     {
@@ -47,5 +50,8 @@ public class LevelLoader : MonoBehaviour
     public void deleteDataHandler()
     {
         Destroy(dataHandler);
+        f22e4123.SetActive(false);
+        Lamborghini_Huracan_Variant.SetActive(false);
+        Aventador_tunnig_Variant.SetActive(false);
     }
 }

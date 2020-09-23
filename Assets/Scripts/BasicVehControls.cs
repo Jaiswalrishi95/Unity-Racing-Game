@@ -32,14 +32,14 @@ public class BasicVehControls : MonoBehaviour
 
     public bool handBraked;
 
-    /*public List<AudioSource> CarSound;
+    public List<AudioSource> CarSound;
 
     public float[] MinRpmTable = { 50.0f, 75.0f, 112.0f, 166.9f, 222.4f, 278.3f, 333.5f, 388.2f, 435.5f, 483.3f, 538.4f, 594.3f, 643.6f, 692.8f, 741.9f, 790.0f };
     public float[] NormalRpmTable = { 72.0f, 93.0f, 155.9f, 202.8f, 267.0f, 314.5f, 377.4f, 423.9f, 472.1f, 519.4f, 582.3f, 631.3f, 680.8f, 729.4f, 778.8f, 826.1f };
     public float[] MaxRpmTable = { 92.0f, 136.0f, 182.9f, 247.4f, 294.3f, 357.5f, 403.6f, 452.5f, 499.3f, 562.5f, 612.3f, 661.6f, 708.8f, 758.9f, 806.0f, 1000.0f };
     public float[] PitchingTable = { 0.12f, 0.12f, 0.12f, 0.12f, 0.11f, 0.10f, 0.09f, 0.08f, 0.06f, 0.06f, 0.06f, 0.06f, 0.06f, 0.06f, 0.06f, 0.06f };
     public float RangeDivider = 4f;
-    public float soundRPM;*/
+    public float soundRPM;
 
     void Start()
     {
@@ -52,11 +52,11 @@ public class BasicVehControls : MonoBehaviour
         COM = GameObject.Find("COM");
         GetComponent<Rigidbody>().centerOfMass = new Vector3(COM.transform.localPosition.x * transform.localScale.x, COM.transform.localPosition.y * transform.localScale.y, COM.transform.localPosition.z * transform.localScale.z);
 
-       /* for (int i = 1; i <= 16; ++i)
+       for (int i = 1; i <= 16; ++i)
         {
             CarSound.Add(GameObject.Find(string.Format("CarSound ({0})", i)).GetComponent<AudioSource>());
             CarSound[i - 1].Play();
-        }*/
+        }
 
     }
 
@@ -87,12 +87,12 @@ public class BasicVehControls : MonoBehaviour
         AutoGears();
         Accelerate();
         UpdateWheelPoses();
-        //carSounds();
+        carSounds();
 
         //Defenitions.
         currentSpeed = GetComponent<Rigidbody>().velocity.magnitude * 3.6f;
-        engineRPM = Mathf.Round((RL.rpm * gearRatio[currentGear]));
-        //soundRPM = Mathf.Round(engineRPM * (1000 / 420));
+        engineRPM = Mathf.Round((-RL.rpm * gearRatio[currentGear]));
+        soundRPM = Mathf.Round(engineRPM * (4000 / 2750));
         torque = bhp * gearRatio[currentGear];
 
         if (Input.GetButton("Jump"))
@@ -204,7 +204,7 @@ public class BasicVehControls : MonoBehaviour
         FR.brakeTorque = brakeTorque;
     }
 
-   /* void carSounds()
+   void carSounds()
     {
 
         for (int i = 0; i < 16; i++)
@@ -715,5 +715,5 @@ public class BasicVehControls : MonoBehaviour
                 }
             }
         }
-    } */
+    }
 }

@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\CarSelector.cs" />
     <Compile Include="Assets\Scripts\DataHandler.cs" />
     <Compile Include="Assets\Scripts\DataImplementer.cs" />
+    <Compile Include="Assets\Scripts\DeleteDataHandler.cs" />
     <Compile Include="Assets\Scripts\LevelLoader.cs" />
     <Compile Include="Assets\Scripts\Wing.cs" />
     <None Include="Assets\Warehouse\README.txt" />
