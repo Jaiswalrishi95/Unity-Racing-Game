@@ -60,6 +60,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\race-track-lake\Standard Assets\Environment\Water (Basic)\Scripts\WaterBasic.cs" />
+    <Compile Include="Assets\race-track-lake\Standard Assets\Environment\Water\Water\Scripts\Displace.cs" />
+    <Compile Include="Assets\race-track-lake\Standard Assets\Environment\Water\Water\Scripts\GerstnerDisplace.cs" />
+    <Compile Include="Assets\race-track-lake\Standard Assets\Environment\Water\Water\Scripts\MeshContainer.cs" />
+    <Compile Include="Assets\race-track-lake\Standard Assets\Environment\Water\Water\Scripts\PlanarReflection.cs" />
+    <Compile Include="Assets\race-track-lake\Standard Assets\Environment\Water\Water\Scripts\SpecularLighting.cs" />
+    <Compile Include="Assets\race-track-lake\Standard Assets\Environment\Water\Water\Scripts\Water.cs" />
+    <Compile Include="Assets\race-track-lake\Standard Assets\Environment\Water\Water\Scripts\WaterBase.cs" />
+    <Compile Include="Assets\race-track-lake\Standard Assets\Environment\Water\Water\Scripts\WaterTile.cs" />
+    <Compile Include="Assets\Scripts\AICarEngine.cs" />
     <Compile Include="Assets\Scripts\AntiRollbar.cs" />
     <Compile Include="Assets\Scripts\BasicVehControls.cs" />
     <Compile Include="Assets\Scripts\BasicVehControls1.cs" />
@@ -68,8 +78,15 @@
     <Compile Include="Assets\Scripts\DataImplementer.cs" />
     <Compile Include="Assets\Scripts\DeleteDataHandler.cs" />
     <Compile Include="Assets\Scripts\LevelLoader.cs" />
+    <Compile Include="Assets\Scripts\Path.cs" />
     <Compile Include="Assets\Scripts\Wing.cs" />
     <None Include="Assets\Warehouse\README.txt" />
+    <None Include="Assets\race-track-lake\readmore.txt" />
+    <None Include="Assets\race-track-lake\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
+    <None Include="Assets\race-track-lake\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
+    <None Include="Assets\race-track-lake\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
+    <None Include="Assets\race-track-lake\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
+    <None Include="Assets\race-track-lake\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>G:/Unity/Unity-Racing-Game/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
