@@ -46,12 +46,4 @@ public class LevelLoader : MonoBehaviour
         menu_Canvas.SetActive(false);
         settings_Canvas.SetActive(true);
     }
-
-    public void deleteDataHandler()
-    {
-        Destroy(dataHandler);
-        f22e4123.SetActive(false);
-        Lamborghini_Huracan_Variant.SetActive(false);
-        Aventador_tunnig_Variant.SetActive(false);
-    }
 }

@@ -132,11 +132,11 @@ public class BasicVehControls : MonoBehaviour
 
         if (currentSpeed < 100)
         {
-            SteerAngle = 20;
+            SteerAngle = 15;
         }
         else
         {
-            SteerAngle = 20;
+            SteerAngle = 15;
         }
 
         FL.steerAngle = SteerAngle * Input.GetAxis("Horizontal");

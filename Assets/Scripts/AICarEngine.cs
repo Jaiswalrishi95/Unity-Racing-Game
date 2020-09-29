@@ -5,7 +5,7 @@ using UnityEngine;
 public class AICarEngine : MonoBehaviour
 {
     public Transform path;
-    public float maxSteerAngle = -20f;
+    public float maxSteerAngle = -30f;
     public WheelCollider FL;
     public WheelCollider FR;
     private List<Transform> nodes;
@@ -20,7 +20,11 @@ public class AICarEngine : MonoBehaviour
     public WheelCollider RR;
     public Transform frontDriverT, frontPassengerT;
     public Transform rearDriverT, rearPassengerT;
-
+    [Header("Sensors")]
+    public float sensorLength = 3f;
+    public Vector3 frontSensorPosition = new Vector3(0f, 0.2f, 0.5f);
+    public float frontSideSensorPosition = 0.3f;
+    public float frontSensorAngle = 30f;
     public float currentSpeed;
     public float maxSpeed;
     public int maxRevSpeed;
@@ -29,6 +33,8 @@ public class AICarEngine : MonoBehaviour
     public float gearDownRPM;
     private GameObject COM;
     private float pitch = 0.8f;
+    private bool avoiding = false;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -76,6 +82,7 @@ public class AICarEngine : MonoBehaviour
         Accelerate();
         UpdateWheelPoses();
         CheckWayPointDistance();
+        Sensors();
 
         //Defenitions.
         currentSpeed = GetComponent<Rigidbody>().velocity.magnitude * 3.6f;
@@ -85,14 +92,100 @@ public class AICarEngine : MonoBehaviour
         GetComponent<AudioSource>().pitch = pitch;
     }
 
+    private void Sensors()
+    {
+        RaycastHit hit;
+        Vector3 sensorStartPos = transform.position;
+        sensorStartPos += transform.forward * frontSensorPosition.z;
+        sensorStartPos += transform.up * frontSensorPosition.y;
+        float avoidMultiplier = 0;
+        avoiding = false;
+        
+        //Right Sensor
+        sensorStartPos += transform.right * frontSideSensorPosition;
+        if (Physics.Raycast(sensorStartPos, -transform.forward, out hit, sensorLength))
+        {
+            if (!hit.collider.CompareTag("Track"))
+            {
+                Debug.DrawLine(sensorStartPos, hit.point);
+                avoiding = true;
+                avoidMultiplier -= 1f;
+            }
+        }
+        
+        //Right Angle Sensor
+        if (Physics.Raycast(sensorStartPos, Quaternion.AngleAxis(frontSensorAngle, transform.up) * -transform.forward, out hit, sensorLength))
+        {
+            if (!hit.collider.CompareTag("Track"))
+            {
+                Debug.DrawLine(sensorStartPos, hit.point);
+                avoiding = true;
+                avoidMultiplier -= 0.5f;
+            }
+        }
+
+
+        //Left Sensor
+        sensorStartPos -= transform.right * frontSideSensorPosition * 2;
+        if (Physics.Raycast(sensorStartPos, -transform.forward, out hit, sensorLength))
+        {
+            if (!hit.collider.CompareTag("Track"))
+            {
+                Debug.DrawLine(sensorStartPos, hit.point);
+                avoiding = true;
+                avoidMultiplier += 1f;
+            }
+        }
+        
+
+        //Left Angle Sensor
+       else if (Physics.Raycast(sensorStartPos, Quaternion.AngleAxis(-frontSensorAngle, transform.up) * -transform.forward, out hit, sensorLength))
+        {
+            if (!hit.collider.CompareTag("Track"))
+            {
+                Debug.DrawLine(sensorStartPos, hit.point);
+                avoiding = true;
+                avoidMultiplier += 0.5f;
+            }
+        }
+
+        //Center Sensor
+        if (avoidMultiplier == 0)
+        {
+            if (Physics.Raycast(sensorStartPos, -transform.forward, out hit, sensorLength))
+            {
+                if (!hit.collider.CompareTag("Track"))
+                {
+                    Debug.DrawLine(sensorStartPos, hit.point);
+                    avoiding = true;
+                    if(hit.normal.x < 0)
+                    {
+                        avoidMultiplier = -1;
+                    }
+                    else
+                    {
+                        avoidMultiplier = 1;
+                    }
+
+                }
+            }
+        }
+
+        if (avoiding)
+        {
+            FL.steerAngle = maxSteerAngle * avoidMultiplier;
+            FR.steerAngle = maxSteerAngle * avoidMultiplier;
+        }
+    }
+
     void Accelerate()
     {
 
         if (currentSpeed < maxSpeed && currentSpeed > maxRevSpeed && engineRPM <= gearUpRPM)
         {
 
-            RL.motorTorque = torque * -100;
-            RR.motorTorque = torque * -100;
+            RL.motorTorque = torque * -50;
+            RR.motorTorque = torque * -50;
             RL.brakeTorque = 0;
             RR.brakeTorque = 0;
         }
@@ -108,6 +201,7 @@ public class AICarEngine : MonoBehaviour
 
     private void ApplySteer()
     {
+        if (avoiding) return;
         Vector3 relativeVector = transform.InverseTransformPoint(nodes[currentNode].position);
         float newSteer = (relativeVector.x / relativeVector.magnitude) * maxSteerAngle;
         FL.steerAngle = -newSteer;
