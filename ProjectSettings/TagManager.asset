@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Mercedes
   - Track
+  - Empty
   layers:
   - Default
   - TransparentFX

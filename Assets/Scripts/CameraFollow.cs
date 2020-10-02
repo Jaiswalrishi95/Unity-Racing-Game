@@ -1,29 +1,52 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
 public class CameraFollow : MonoBehaviour
 {
+    [SerializeField]
     public Transform followTarget;
 
-    public Vector3 cameraOffset;
+    [SerializeField]
+    private Vector3 offsetPosition;
 
-    private float finalX = 0;
-    private float finalY = 0;
-    private float finalZ = 0;
+    [SerializeField]
+    private Space offsetPositionSpace = Space.Self;
 
-    void Update()
+    [SerializeField]
+    private bool lookAt = true;
+
+    private void Update()
     {
-        finalX = 0;
-        finalY = 0;
-        finalZ = 0;
+        Refresh();
+    }
 
-        finalX = followTarget.position.x + cameraOffset.x;
+    public void Refresh()
+    {
+        if (followTarget == null)
+        {
+            Debug.LogWarning("Missing target ref !", this);
 
-        finalY = cameraOffset.y;
+            return;
+        }
 
-        finalZ = followTarget.position.z + cameraOffset.z;
+        // compute position
+        if (offsetPositionSpace == Space.Self)
+        {
+            transform.position = followTarget.TransformPoint(offsetPosition);
+        }
+        else
+        {
+            transform.position = followTarget.position + offsetPosition;
+        }
 
-        transform.position = new Vector3(finalX, finalY, finalZ);
+        // compute rotation
+        if (lookAt)
+        {
+            transform.LookAt(followTarget);
+        }
+        else
+        {
+            transform.rotation = followTarget.rotation;
+        }
     }
 }

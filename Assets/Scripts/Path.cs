@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,5 +38,10 @@ public class Path : MonoBehaviour
             Gizmos.DrawLine(previousNode, currentNode);
             Gizmos.DrawWireSphere(currentNode, 0.3f);
         }
+    }
+
+    public static string GetFileNameWithoutExtension(string pth)
+    {
+        throw new NotImplementedException();
     }
 }

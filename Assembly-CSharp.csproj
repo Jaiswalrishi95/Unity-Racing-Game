@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\LevelLoader.cs" />
     <Compile Include="Assets\Scripts\LevelLoader1.cs" />
     <Compile Include="Assets\Scripts\Path.cs" />
+    <Compile Include="Assets\Scripts\Record.cs" />
     <Compile Include="Assets\Scripts\Wing.cs" />
     <Compile Include="Assets\race-track-lake\Standard Assets\Environment\Water (Basic)\Scripts\WaterBasic.cs" />
     <Compile Include="Assets\race-track-lake\Standard Assets\Environment\Water\Water\Scripts\Displace.cs" />
