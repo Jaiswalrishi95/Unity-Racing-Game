@@ -4,21 +4,21 @@ using System.Collections.Generic;
 
 public class BasicVehControls : MonoBehaviour
 {
-
+    
     public int bhp;
     public float torque;
     public int brakeTorque;
-
+    public Record ms;
     public float[] gearRatio;
     public int currentGear;
-
+    
     public WheelCollider FL;
     public WheelCollider FR;
     public WheelCollider RL;
     public WheelCollider RR;
     public Transform frontDriverT, frontPassengerT;
     public Transform rearDriverT, rearPassengerT;
-
+    
     public float currentSpeed;
     public float maxSpeed;
     public int maxRevSpeed;
@@ -34,7 +34,6 @@ public class BasicVehControls : MonoBehaviour
 
     void Start()
     {
-
         FL = GameObject.Find("wheels 1 col").GetComponent<WheelCollider>();
         FR = GameObject.Find("wheels col").GetComponent<WheelCollider>();
         RL = GameObject.Find("wheels 3 col").GetComponent<WheelCollider>();
@@ -70,7 +69,7 @@ public class BasicVehControls : MonoBehaviour
         AutoGears();
         Accelerate();
         UpdateWheelPoses();
-
+        
         //Defenitions.
         currentSpeed = GetComponent<Rigidbody>().velocity.magnitude * 3.6f;
         engineRPM = Mathf.Round(((RL.rpm + RR.rpm) / 2) * gearRatio[currentGear]);
@@ -82,19 +81,20 @@ public class BasicVehControls : MonoBehaviour
         {
             HandBrakes();
         }
-
         if (Input.GetKey(KeyCode.R))
         {
 
-            transform.position.Set(transform.position.x, transform.position.y + 5f, transform.position.z);
-            transform.rotation.Set(0, 0, 0, 0);
+            transform.position = new Vector3(499.508f, 194.402f, 321.193f);
+            transform.rotation = new Quaternion(0f, 110f, 0f, 0f);
+        }
+        if (Input.GetKey(KeyCode.C))
+        {
+            ms.Replay();
         }
     }
 
-
     //Function
-
-    void Accelerate()
+   public void Accelerate()
     {
 
         if (currentSpeed < maxSpeed && currentSpeed > maxRevSpeed && engineRPM <= gearUpRPM)
@@ -186,4 +186,5 @@ public class BasicVehControls : MonoBehaviour
         FL.brakeTorque = brakeTorque;
         FR.brakeTorque = brakeTorque;
     }
+
 }

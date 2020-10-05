@@ -178,14 +178,14 @@ public class AICarEngine : MonoBehaviour
         }
     }
 
-    void Accelerate()
+   public void Accelerate()
     {
 
         if (currentSpeed < maxSpeed && currentSpeed > maxRevSpeed && engineRPM <= gearUpRPM)
         {
 
-            RL.motorTorque = torque * -50;
-            RR.motorTorque = torque * -50;
+            RL.motorTorque = torque * -100;
+            RR.motorTorque = torque * -100;
             RL.brakeTorque = 0;
             RR.brakeTorque = 0;
         }
