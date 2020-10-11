@@ -11,7 +11,7 @@ public class BasicVehControls : MonoBehaviour
     public Record ms;
     public float[] gearRatio;
     public int currentGear;
-    
+    public GameObject canvas;
     public WheelCollider FL;
     public WheelCollider FR;
     public WheelCollider RL;
@@ -34,6 +34,7 @@ public class BasicVehControls : MonoBehaviour
 
     void Start()
     {
+        pitch = 0.8f;
         FL = GameObject.Find("wheels 1 col").GetComponent<WheelCollider>();
         FR = GameObject.Find("wheels col").GetComponent<WheelCollider>();
         RL = GameObject.Find("wheels 3 col").GetComponent<WheelCollider>();
@@ -89,7 +90,8 @@ public class BasicVehControls : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.C))
         {
-            ms.Replay();
+            ms.stop_recording();
+            canvas.SetActive(true);
         }
     }
 

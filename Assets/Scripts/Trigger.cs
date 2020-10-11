@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class Trigger : MonoBehaviour
 {
-   public Record ms;
-    
+    public Record ms;
     private void OnTriggerEnter(Collider other)
     {
-       
-        if (other.gameObject.name == "StartLine")
+        if (other.gameObject.name == "f22e4123")
         {
-            ms.Records();
+           Debug.Log("Name:"+ other.gameObject.name);
+           ms.start_recording();
         }
     }
 }

@@ -71,10 +71,16 @@
     <Compile Include="Assets\Scripts\DataHandler.cs" />
     <Compile Include="Assets\Scripts\DataImplementer.cs" />
     <Compile Include="Assets\Scripts\DeleteDataHandler.cs" />
+    <Compile Include="Assets\Scripts\FPSInputTracker.cs" />
+    <Compile Include="Assets\Scripts\FPSTrackerExampleGUI.cs" />
     <Compile Include="Assets\Scripts\LevelLoader.cs" />
     <Compile Include="Assets\Scripts\LevelLoader1.cs" />
     <Compile Include="Assets\Scripts\Path.cs" />
     <Compile Include="Assets\Scripts\Record.cs" />
+    <Compile Include="Assets\Scripts\ReplayButton.cs" />
+    <Compile Include="Assets\Scripts\ReplayButton1.cs" />
+    <Compile Include="Assets\Scripts\SerializableQuaternion.cs" />
+    <Compile Include="Assets\Scripts\SerializableVector3.cs" />
     <Compile Include="Assets\Scripts\Trigger.cs" />
     <Compile Include="Assets\Scripts\Trigger1.cs" />
     <Compile Include="Assets\Scripts\Wing.cs" />
@@ -131,6 +137,7 @@
     <None Include="Assets\Warehouse\README.txt" />
     <None Include="Assets\race-track-lake\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\UserSaveLogs\FPSInputTracker.1.xml" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
@@ -139,6 +146,7 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\race-track-lake\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\UserSaveLogs\FPSInputTracker.0.xml" />
     <None Include="Assets\race-track-lake\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\race-track-lake\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
