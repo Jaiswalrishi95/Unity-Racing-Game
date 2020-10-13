@@ -63,6 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AICarEngine.cs" />
+    <Compile Include="Assets\Scripts\AICarEngine1.cs" />
+    <Compile Include="Assets\Scripts\AICarEngine2.cs" />
     <Compile Include="Assets\Scripts\AntiRollbar.cs" />
     <Compile Include="Assets\Scripts\BasicVehControls.cs" />
     <Compile Include="Assets\Scripts\BasicVehControls1.cs" />

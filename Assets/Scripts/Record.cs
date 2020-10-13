@@ -16,6 +16,7 @@ public class Record : MonoBehaviour
         public SerializableVector3 position;
 
         //constructor
+        public GoVals() { }
         public GoVals(SerializableVector3 position, SerializableQuaternion rotation)
         {
             this.position = position;
@@ -26,10 +27,14 @@ public class Record : MonoBehaviour
     //a list of recorded values
     List<GoVals> vals = new List<GoVals>();
     List<GoVals> vals1 = new List<GoVals>();
+    List<GoVals> vals2 = new List<GoVals>();
+    List<GoVals> vals3 = new List<GoVals>();
 
     List<GoVals> recieved_vals = new List<GoVals>();
     List<GoVals> recieved_vals1 = new List<GoVals>();
-    
+    List<GoVals> recieved_vals2 = new List<GoVals>();
+    List<GoVals> recieved_vals3 = new List<GoVals>();
+
     //are we recording?
     public bool is_recording = false;
     //...are we replaying?
@@ -40,6 +45,8 @@ public class Record : MonoBehaviour
     //cache of our transform
     Transform tf;
     Transform tq;
+    Transform tr;
+    Transform ts;
     string dir;
     string serializationFile;
     void Start()
@@ -47,6 +54,8 @@ public class Record : MonoBehaviour
         //cache it...
         tf = GameObject.FindWithTag("Mercedes").transform;
         tq = GameObject.FindWithTag("Player").transform;
+        tr = GameObject.FindWithTag("Player1").transform;
+        ts = GameObject.FindWithTag("Player2").transform;
         is_recording = false;
         is_replaying = false;
 
@@ -71,6 +80,8 @@ public class Record : MonoBehaviour
             //add a new value to our recorder list
             vals.Add(new GoVals(tf.position, tf.rotation));
             vals1.Add(new GoVals(tq.position, tq.rotation));
+            vals2.Add(new GoVals(tr.position, tr.rotation));
+            vals3.Add(new GoVals(ts.position, ts.rotation));
     }
 
     public void Replay()
@@ -78,7 +89,7 @@ public class Record : MonoBehaviour
         if (!is_replaying) return;
         
             //if the frame we're going to try to replay exceeds available replayable frames...
-            if (replayFrame >= recieved_vals.Count && replayFrame >= recieved_vals1.Count)
+            if (replayFrame >= recieved_vals.Count && replayFrame >= recieved_vals1.Count && replayFrame >= recieved_vals2.Count && replayFrame >= recieved_vals3.Count)
             {
                 replayFrame = 0;
                 is_replaying = false;
@@ -91,8 +102,12 @@ public class Record : MonoBehaviour
             tf.rotation = recieved_vals[replayFrame].rotation;
             tq.position = recieved_vals1[replayFrame].position;
             tq.rotation = recieved_vals1[replayFrame].rotation;
-            //increment our frame
-            replayFrame++;
+            tr.position = recieved_vals2[replayFrame].position;
+            tr.rotation = recieved_vals2[replayFrame].rotation;
+            ts.position = recieved_vals3[replayFrame].position;
+            ts.rotation = recieved_vals3[replayFrame].rotation;
+        //increment our frame
+        replayFrame++;
     }
     public void stop_recording()
     {
@@ -101,17 +116,27 @@ public class Record : MonoBehaviour
         List<List<GoVals>> sent_combined_val_list = new List<List<GoVals>>();
         sent_combined_val_list.Add(vals);
         sent_combined_val_list.Add(vals1);
+        sent_combined_val_list.Add(vals2);
+        sent_combined_val_list.Add(vals3);
         //serialize
         using (Stream stream = File.Open(serializationFile, FileMode.Create))
-        {
-            var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+         {
+             var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
 
-            bformatter.Serialize(stream, sent_combined_val_list);
-            Debug.Log("Sent" + bformatter);
-        }
-        
-        
-        return ;
+             bformatter.Serialize(stream, sent_combined_val_list);
+             Debug.Log("Sent" + bformatter);
+         }
+
+        /*  using (Stream stream = File.Open(serializationFile, FileMode.Create))
+         {
+             XmlSerializer serializer = new XmlSerializer(typeof(GoVals));
+
+             serializer.Serialize(stream, sent_combined_val_list);
+             Debug.Log("Sent" + serializer);
+         }*/
+
+
+        return;
     }
     public void start_recording()
     {
@@ -124,21 +149,28 @@ public class Record : MonoBehaviour
     public void start_replay()
     {
         //deserialize
-        using (Stream stream = File.Open(serializationFile, FileMode.Open))
+         using (Stream stream = File.Open(serializationFile, FileMode.Open))
+         {
+             var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+
+             List<List<GoVals>> received_combined_val_list = (List<List<GoVals>>)bformatter.Deserialize(stream);
+
+             Debug.Log("Received" + received_combined_val_list);
+             recieved_vals = received_combined_val_list[0];
+             recieved_vals1 = received_combined_val_list[1];
+             recieved_vals2 = received_combined_val_list[2];
+             recieved_vals3 = received_combined_val_list[3];
+        }
+
+        /*using (Stream stream = File.Open(serializationFile, FileMode.Open))
         {
-            var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-
-            List<List<GoVals>> received_combined_val_list = (List<List<GoVals>>)bformatter.Deserialize(stream);
-
+            XmlSerializer serializer = new XmlSerializer(typeof(GoVals));
+            List<List<GoVals>> received_combined_val_list = (List<List<GoVals>>)serializer.Deserialize(stream);
             Debug.Log("Received" + received_combined_val_list);
             recieved_vals = received_combined_val_list[0];
             recieved_vals1 = received_combined_val_list[1];
-        }
-
-
-        is_replaying = true;
-
-        
+        }*/
+        is_replaying = true; 
     }
 
     /*void OnGUI()
@@ -154,30 +186,5 @@ public class Record : MonoBehaviour
             if (GUILayout.Button(replaying ? "Stop Replay" : "Replay"))
                 replaying = !replaying;
         }
-    }*/
-    /*[XmlRoot("GoValsCollection")]
-    public class Govals
-    {
-        [XmlArray("GoVals"), XmlArrayItem("vals")]
-        public GoVals[] vals;
-
-        public void Save()
-        {
-            var serializer = new XmlSerializer(typeof(Govals));
-            Debug.Log("SUCCESS");
-            using (var stream = new FileStream(Application.dataPath + "/xmlTest.xml", FileMode.Create))
-            {
-                serializer.Serialize(stream, this);
-            }
-        }
-        public static Govals Load()
-        {
-            var serializer = new XmlSerializer(typeof(Govals));
-            using (var stream = new FileStream(Application.dataPath + "/xmlTest.xml", FileMode.Open))
-            {
-                return serializer.Deserialize(stream) as Govals;
-            }
-        }
- 
     }*/
 }

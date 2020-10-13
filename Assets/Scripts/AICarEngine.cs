@@ -5,7 +5,7 @@ using UnityEngine;
 public class AICarEngine : MonoBehaviour
 {
     public Transform path;
-    public float maxSteerAngle = -30f;
+    public float maxSteerAngle = 30f;
     public WheelCollider FL;
     public WheelCollider FR;
     private List<Transform> nodes;
