@@ -59,7 +59,7 @@ public class Record : MonoBehaviour
         is_recording = false;
         is_replaying = false;
 
-        dir = Application.dataPath;
+        dir = Application.persistentDataPath;
         serializationFile = System.IO.Path.Combine(dir, "record.bin");
     }
 

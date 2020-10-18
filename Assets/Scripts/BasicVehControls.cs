@@ -31,6 +31,7 @@ public class BasicVehControls : MonoBehaviour
     private GameObject COM;
     public bool handBraked;
     private float pitch = 0.8f;
+    public Laps ls;
 
     void Start()
     {

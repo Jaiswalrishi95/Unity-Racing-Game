@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\AntiRollbar.cs" />
     <Compile Include="Assets\Scripts\BasicVehControls.cs" />
     <Compile Include="Assets\Scripts\BasicVehControls1.cs" />
+    <Compile Include="Assets\Scripts\Brakes.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\CarSelector.cs" />
     <Compile Include="Assets\Scripts\DataHandler.cs" />
@@ -75,6 +76,8 @@
     <Compile Include="Assets\Scripts\DeleteDataHandler.cs" />
     <Compile Include="Assets\Scripts\FPSInputTracker.cs" />
     <Compile Include="Assets\Scripts\FPSTrackerExampleGUI.cs" />
+    <Compile Include="Assets\Scripts\LapCollider.cs" />
+    <Compile Include="Assets\Scripts\Laps.cs" />
     <Compile Include="Assets\Scripts\LevelLoader.cs" />
     <Compile Include="Assets\Scripts\LevelLoader1.cs" />
     <Compile Include="Assets\Scripts\Path.cs" />

@@ -10,6 +10,8 @@ TagManager:
   - StartLine
   - Player1
   - Player2
+  - Brakezone
+  - Lapss
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - 
   - PostProcessing
   - Mercedes
-  - 
+  - Brakezone
   - 
   - 
   - 
